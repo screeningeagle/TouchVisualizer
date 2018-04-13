@@ -41,7 +41,6 @@ final public class Visualizer:NSObject {
     // MARK: - Helper Functions
     @objc internal func applicationDidBecomeActiveNotification(_ notification: Notification) {
         UIApplication.shared.keyWindow?.swizzle()
-        UINavigationController().swizzle()
     }
     
     @objc internal func orientationDidChangeNotification(_ notification: Notification) {
