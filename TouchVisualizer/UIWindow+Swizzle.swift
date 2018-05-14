@@ -23,9 +23,9 @@ extension UIWindow {
     }
     
     public func swizzleNav() {
-        let pushEvent = class_getInstanceMethod(UINavigationController.classForCoder(), #selector(UINavigationController.pushViewController(_:animated:)))
-        let swizzledPushEvent = class_getInstanceMethod(UINavigationController.classForCoder(), #selector(UINavigationController.swizzledPushViewController(_:animated:)))
-        method_exchangeImplementations(pushEvent!, swizzledPushEvent!)
+        let disappearEvent = class_getInstanceMethod(UIViewController.classForCoder(), #selector(UINavigationController.viewWillDisappear(_:)))
+        let swizzledDisappearEvent = class_getInstanceMethod(UIViewController.classForCoder(), #selector(UIViewController.swizzledViewWillDisappear(_:)))
+        method_exchangeImplementations(disappearEvent!, swizzledDisappearEvent!)
     }
     
     @objc public func swizzledSendEvent(_ event: UIEvent) {
@@ -35,10 +35,9 @@ extension UIWindow {
     
 }
 
-extension UINavigationController {
-
-    @objc public func swizzledPushViewController(_ viewController: UIViewController, animated: Bool) {
+extension UIViewController {
+    @objc public func swizzledViewWillDisappear(_ animated: Bool) {
         Visualizer.sharedInstance.removeAllTouchViews()
-        swizzledPushViewController(viewController, animated: animated)
+        swizzledViewWillDisappear(animated)
     }
 }
