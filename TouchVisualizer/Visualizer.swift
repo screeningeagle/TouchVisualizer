@@ -141,13 +141,8 @@ extension Visualizer {
             return
         }
 
-        var topWindow = UIApplication.shared.keyWindow!
-        for window in UIApplication.shared.windows {
-            if window.isHidden == false && window.windowLevel > topWindow.windowLevel {
-                topWindow = window
-            }
-        }
-        
+        let topWindow = UIApplication.shared.keyWindow!
+
         for touch in event.allTouches! {
             let phase = touch.phase
             switch phase {
